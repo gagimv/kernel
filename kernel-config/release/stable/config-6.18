@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.18.23 Kernel Configuration
+# Linux/arm64 6.18.24 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="aarch64-none-linux-gnu-gcc (Arm GNU Toolchain 15.2.Rel1 (Build arm-15.86)) 15.2.1 20251203"
 CONFIG_CC_IS_GCC=y
@@ -8162,7 +8162,7 @@ CONFIG_ARM_SCPI_POWER_DOMAIN=y
 
 CONFIG_ROCKCHIP_PM_DOMAINS=y
 CONFIG_SUN20I_PPU=y
-# CONFIG_SUN50I_H6_PRCM_PPU is not set
+CONFIG_SUN50I_H6_PRCM_PPU=y
 CONFIG_SUN55I_PCK600=y
 # end of PM Domains
 
