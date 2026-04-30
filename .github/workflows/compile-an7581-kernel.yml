@@ -1,0 +1,50 @@
+name: Compile AN7581 Kernel
+
+on:
+  workflow_dispatch:
+    inputs:
+      kernel_version:
+        description: "Kernel version"
+        required: false
+        default: "6.12.y"
+        type: choice
+        options:
+          - 6.12.y
+          - 6.18.y
+      kernel_auto:
+        description: "Auto use latest kernel"
+        required: false
+        default: true
+        type: boolean
+
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Compile kernel with AN7581 DTS
+        uses: ophub/amlogic-s9xxx-armbian@main
+        with:
+          build_target: kernel
+          kernel_source: unifreq
+          kernel_version: ${{ inputs.kernel_version }}
+          kernel_auto: ${{ inputs.kernel_auto }}
+          kernel_package: all
+          kernel_toolchain: gcc
+          kernel_sign: -an7581
+          kernel_config: false
+          kernel_patch: kernel-patch/beta
+
+      - name: Upload Kernel
+        uses: ncipollo/release-action@main
+        if: ${{ env.PACKAGED_STATUS == 'success' }}
+        with:
+          tag: kernel_an7581
+          artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+          allowUpdates: true
+          token: ${{ secrets.GITHUB_TOKEN }}
