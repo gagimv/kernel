@@ -16,6 +16,15 @@ on:
         required: false
         default: true
         type: boolean
+      kernel_toolchain:
+        description: "Compilation toolchain"
+        required: false
+        default: "gcc-14.3"
+        type: choice
+        options:
+          - gcc-14.3
+          - gcc-14.2
+          - gcc
 
 env:
   TZ: Asia/Shanghai
@@ -35,7 +44,7 @@ jobs:
           kernel_version: ${{ inputs.kernel_version }}
           kernel_auto: ${{ inputs.kernel_auto }}
           kernel_package: all
-          kernel_toolchain: gcc
+          kernel_toolchain: ${{ inputs.kernel_toolchain }}
           kernel_sign: -an7581
           kernel_config: false
           kernel_patch: kernel-patch/beta
